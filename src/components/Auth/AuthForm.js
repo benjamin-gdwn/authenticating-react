@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
-  const [showError, setShowError] = useState('');
+  const [showError, setShowError] = useState("");
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
@@ -66,20 +66,18 @@ const AuthForm = () => {
               // throw a new error with info received
               errorMessage = data.error.message;
             }
-            
+
             throw new Error(errorMessage);
           });
         }
-        
-      }
-      )
+      })
       .then((data) => {
         // creating a time to pass to the auth context - create new date, with a newdate and newtime + the tokens expiry into miliseconds
-        const expTime = new Date(new Date().getTime() + (+data.expiresIn * 1000))
-        console.log(expTime)
+        const expTime = new Date(new Date().getTime() + +data.expiresIn * 1000);
+        console.log(expTime);
         // passing this to the login function
         authCtx.login(data.idToken, expTime.toISOString());
-        history.replace('/')
+        history.replace("/");
       })
       .catch((err) => {
         // err is the argument which stores error message so set it as state
@@ -90,7 +88,11 @@ const AuthForm = () => {
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-      {isError && <div className={classes.alert}><h3 className={classes.loading}>{showError}</h3></div>}
+      {isError && (
+        <div className={classes.alert}>
+          <h3 className={classes.loading}>{showError}</h3>
+        </div>
+      )}
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
