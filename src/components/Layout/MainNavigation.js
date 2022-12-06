@@ -5,6 +5,7 @@ import classes from './MainNavigation.module.css';
 import AuthContext from '../../store/AuthContext';
 
 const MainNavigation = () => {
+  // extracting the token info from the context
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
 

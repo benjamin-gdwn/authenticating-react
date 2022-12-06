@@ -1,6 +1,6 @@
 import { useRef, useState, useContext } from "react";
 import AuthContext from "../../store/AuthContext";
-
+import { useHistory } from "react-router-dom";
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
@@ -12,6 +12,7 @@ const AuthForm = () => {
   const passwordInputRef = useRef();
   // bringing in the context from the state wide management of logged in or out
   const authCtx = useContext(AuthContext);
+  const history = useHistory();
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -74,6 +75,7 @@ const AuthForm = () => {
       )
       .then((data) => {
         authCtx.login(data.idToken);
+        history.replace('/')
       })
       .catch((err) => {
         // err is the argument which stores error message so set it as state
