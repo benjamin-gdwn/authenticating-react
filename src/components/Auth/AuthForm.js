@@ -75,9 +75,10 @@ const AuthForm = () => {
       )
       .then((data) => {
         // creating a time to pass to the auth context - create new date, with a newdate and newtime + the tokens expiry into miliseconds
-        const expTime = new Date(new Date().getTime() + (+data.expiresin * 1000))
+        const expTime = new Date(new Date().getTime() + (+data.expiresIn * 1000))
+        console.log(expTime)
         // passing this to the login function
-        authCtx.login(data.idToken, expTime.toString());
+        authCtx.login(data.idToken, expTime.toISOString());
         history.replace('/')
       })
       .catch((err) => {
